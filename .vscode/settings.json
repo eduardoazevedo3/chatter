@@ -1,0 +1,14 @@
+{
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "eslint.workingDirectories": [
+    "frontend"
+  ],
+  "ruby.rubocop.configFilePath": "./backend/.rubocop.yml",
+  "ruby.rubocop.onSave": true,
+}

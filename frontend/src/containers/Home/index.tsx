@@ -1,22 +1,14 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import Container from '../../components/Containter'
+import Typography from '../../components/Typography'
+import Sidebar from '../Sidebar'
 
-const Header = styled.header`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  text-align: center;
-`
-
-const Home = () => (
-  <Header>
-    <Link to="/users">Users</Link>
-    <Link to="/chats">Chats</Link>
-    <Link to="/login">Login</Link>
-  </Header>
-)
+const Home = () => {
+  return (
+    <Container>
+      <Typography variant="h1">Home</Typography>
+      <Sidebar />
+    </Container>
+  )
+}
 
 export default Home

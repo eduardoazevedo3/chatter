@@ -1,62 +1,50 @@
 import styled, { css } from 'styled-components'
 
 type Props = {
-  primary?: boolean
-  success?: boolean
-  danger?: boolean
-  small?: boolean
+  color?: 'default' | 'primary' | 'success' | 'danger'
+  size?: 'large' | 'small'
+  fullWidth?: boolean
+  mb?: number
+  ml?: number
+  mr?: number
+  mt?: number
 }
 
 const Button = styled.button<Props>`
-  ${({ primary, success, danger, small, theme }) => css`
-    background-color: transparent;
-    border: 1px solid #8257e5;
+  ${({ color = 'default', size, fullWidth, theme, ...props }) => css`
+    background-color: ${theme[color].backgroundColor};
+    border: 1px solid ${theme[color].borderColor};
     color: #fff;
     padding: 12px 24px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 1.1rem;
+    margin-bottom: ${props.mb || 0}px;
+    margin-left: ${props.ml || 0}px;
+    margin-right: ${props.mr || 0}px;
+    margin-top: ${props.mt || 0}px;
 
-    &:hover {
-      background-color: ${theme.primary};
+    &:hover:not(:disabled) {
+      filter: brightness(1.25);
       cursor: pointer;
     }
 
-    ${primary &&
-    css`
-      background-color: ${theme.primary};
-      border-color: ${theme.primary};
+    &:active:not(:disabled) {
+      filter: brightness(1.5);
+    }
 
-      &:hover {
-        background-color: ${theme.primaryHover};
-        border-color: ${theme.primaryHover};
-      }
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    ${size &&
+    css`
+      padding: ${theme.button.size[size].padding};
+      font-size: ${theme.button.size[size].fontSize};
     `}
 
-    ${success &&
+    ${fullWidth &&
     css`
-      background-color: ${theme.success};
-      border-color: ${theme.success};
-
-      &:hover {
-        background-color: ${theme.successHover};
-        border-color: ${theme.successHover};
-      }
-    `}
-
-    ${danger &&
-    css`
-      background-color: ${theme.danger};
-      border-color: ${theme.danger};
-
-      &:hover {
-        background-color: ${theme.dangerHover};
-        border-color: ${theme.dangerHover};
-      }
-    `}
-
-    ${small &&
-    css`
-      padding: 6px 12px;
+      width: 100%;
     `}
   `}
 `

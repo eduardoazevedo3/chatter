@@ -20,7 +20,7 @@ const ChatContent = styled.div<Props>`
     margin: 6px 0;
     overflow-wrap: break-word;
     float: ${author ? 'left' : 'right'};
-    background-color: ${author ? theme.primary : theme.success};
+    background-color: ${author ? theme.primary.backgroundColor : theme.success.backgroundColor};
   `}
 `
 

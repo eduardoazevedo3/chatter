@@ -1,19 +1,11 @@
-import { Switch, Route, RouteProps, Redirect } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import Chat from '../containers/Chat'
 import Home from '../containers/Home/index'
 import Login from '../containers/Login/index'
 import UserList from '../containers/User/index'
 import UserForm from '../containers/User/UserForm'
-
-const isAutheticated = localStorage.getItem('authHeaders') !== null
-
-const PublicRoute = (props: RouteProps) => {
-  return isAutheticated ? <Redirect to="/" /> : <Route {...props} />
-}
-
-const PrivateRoute = (props: RouteProps) => {
-  return isAutheticated ? <Route {...props} /> : <Redirect to="/login" />
-}
+import PrivateRoute from './PrivateRoute'
+import PublicRoute from './PublicRoute'
 
 export default function Routes() {
   return (

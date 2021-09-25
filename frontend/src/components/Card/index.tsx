@@ -1,22 +1,24 @@
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
+import Box from '../Box'
 
 type Props = {
   bgcolor?: string
 }
 
-const Card = styled.div`
-  padding: 15px;
-  background-color: #202024;
-  border-radius: 5px;
-  margin: 15px 0;
+const Card = styled(Box)<Props>`
+  ${({ bgcolor, theme }) => css`
+    padding: 15px;
+    background-color: #202024;
+    border-radius: 5px;
+    margin: 15px 0;
 
-  background-color: ${(props: Props) => props.bgcolor};
+    background-color: ${bgcolor};
 
-  ${(props: Props) =>
-    props.bgcolor &&
+    ${bgcolor &&
     css`
-      background-color: ${(global: any) => global.theme[props.bgcolor as string]};
+      background-color: ${theme[bgcolor as keyof DefaultTheme]};
     `}
+  `}
 `
 
 export default Card

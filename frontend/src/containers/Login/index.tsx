@@ -1,46 +1,73 @@
-import { FormEvent, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router-dom'
+import Box from '../../components/Box'
+import Button from '../../components/Button'
+import Card from '../../components/Card'
+import Container from '../../components/Containter'
+import Form from '../../components/Form'
+import TextField from '../../components/TextField'
+import Typography from '../../components/Typography'
+import useStorage from '../../hooks/storage'
 import { UserLogin } from '../../types/user.type'
 
 const Login = () => {
-  const [user, setUser] = useState<UserLogin>({} as UserLogin)
+  const [token, setToken] = useStorage('authToken')
+  const [loading, setLoading] = useState(false)
+  const history = useHistory()
 
-  useEffect(() => {
-    console.log('useEffect')
-  }, [])
+  const {
+    register,
+    setValue,
+    setFocus,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserLogin>({
+    mode: 'onBlur',
+  })
 
-  const handleChange = (e: FormEvent<HTMLInputElement>) => {
-    const field = e.currentTarget
-    const data = { ...user, [field.name]: field.value }
-    setUser(data)
-  }
+  const onSubmit = handleSubmit(async (params) => {
+    try {
+      if (token) return
+
+      setLoading(true)
+      const { headers } = await axios.post('http://localhost:3000/v1/auth/sign_in', { ...params })
+
+      setToken({
+        uid: headers.uid,
+        client: headers.client,
+        expiry: headers.expiry,
+        'access-token': headers['access-token'],
+        'token-type': headers['token-type'],
+      })
+
+      history.push('/')
+    } catch (e: any) {
+      console.log(e)
+      setValue('password', '')
+      setFocus('password')
+      // renderErrors(error.response.data)
+    } finally {
+      setLoading(false)
+    }
+  })
 
   return (
-    <div>
-      <h1>Login</h1>
-      <p>Seja bem-vindo</p>
-      <p>
-        <Link to="/">Home</Link>
-      </p>
-      <p>
-        <a href="/">Home URL</a>
-      </p>
-      <div>
-        <label htmlFor="user-email">E-mail</label>
-        <div>
-          <input type="email" name="email" id="user-email" onChange={handleChange} />
-        </div>
-      </div>
-      <div>
-        <label htmlFor="user-password">Senha</label>
-        <div>
-          <input type="password" name="password" id="user-password" onChange={handleChange} />
-        </div>
-      </div>
-      <div style={{ marginTop: '10px' }}>
-        <button type="button">Entrar</button>
-      </div>
-    </div>
+    <Container flex>
+      <Typography variant="h1">Login</Typography>
+      <Card width="500px">
+        <Form onSubmit={onSubmit}>
+          <TextField id="user-email" name="email" label="Email" errors={errors} register={register} required />
+          <TextField type="password" id="user-password" name="password" label="Password" errors={errors} register={register} required />
+          <Box mt={25}>
+            <Button type="submit" color="primary" size="large" disabled={loading} fullWidth>
+              {loading ? 'Entrando...' : 'Entrar'}
+            </Button>
+          </Box>
+        </Form>
+      </Card>
+    </Container>
   )
 }
 

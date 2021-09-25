@@ -1,41 +1,40 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useCallback, useEffect, useState } from 'react'
 import Card from '../../components/Card'
 import ChatConversation, { ChatContent } from '../../components/ChatConversation'
 import Container from '../../components/Containter'
 import Grid from '../../components/Grid'
 import Typography from '../../components/Typography'
+import useApi from '../../hooks/api'
 import { ChatMessage } from '../../types/chat_message.type'
 import { User } from '../../types/user.type'
+import Sidebar from '../Sidebar'
 
 const Chat = () => {
   const [currentUser, setCurrentUser] = useState<User>()
   const [users, setUsers] = useState<User[]>([])
   const [messages, setMessages] = useState<ChatMessage[]>([])
+  const api = useApi()
 
-  const getUsers = async () => {
-    const { data } = await axios.get('http://localhost:3000/v1/users')
+  const getUsers = useCallback(async () => {
+    const { data } = await api.get('/users')
     setCurrentUser(data[0])
     setUsers(data)
-  }
+  }, [api])
 
-  const getChatMessages = async () => {
-    const { data } = await axios.get('http://localhost:3000/v1/chat_messages')
+  const getChatMessages = useCallback(async () => {
+    const { data } = await api.get('/chat_messages')
     setMessages(data)
-  }
+  }, [api])
 
   useEffect(() => {
     getUsers()
     getChatMessages()
-  }, [])
+  }, [getChatMessages, getUsers])
 
   return (
     <Container>
       <Typography variant="h1">Chats</Typography>
-      <Card>
-        <Link to="/">Home</Link>
-      </Card>
+      <Sidebar />
       <Grid container>
         <Grid xs={4}>
           <Card>

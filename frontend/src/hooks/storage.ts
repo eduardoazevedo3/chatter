@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-export default function useStorage(key: string) {
+const useStorage = (key: string) => {
   const [state, setState] = useState(() => {
     const item: any = localStorage.getItem(key)
     try {
@@ -36,3 +36,5 @@ export default function useStorage(key: string) {
 
   return [state, set, remove]
 }
+
+export default useStorage

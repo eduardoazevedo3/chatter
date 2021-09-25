@@ -36,7 +36,8 @@ const GlobalStyle = createGlobalStyle(
     }
 
     #wrapper {
-      max-width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
       flex: 1;
     }
 

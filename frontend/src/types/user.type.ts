@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export type User = {
   id: number
   active: boolean

@@ -1,4 +1,4 @@
-class V1::ChatMessagesController < ApplicationController
+class V1::ChatMessagesController < V1::ApplicationController
   before_action :set_chat_message, only: [:show, :update, :destroy]
 
   # GET /chat_messages

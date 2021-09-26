@@ -6,16 +6,17 @@ import useStorage from '../../hooks/storage'
 const Sidebar = () => {
   const api = useApi()
   const history = useHistory()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [token, removeToken] = useStorage('authToken')
 
   const logout = async () => {
     try {
-      await api.delete('/auth/sign_out')
-      removeToken()
+      if (token) {
+        await api.delete('/auth/sign_out')
+        removeToken()
+      }
       history.push('/login')
     } catch (e: any) {
-      if (e.response.status === 401 || e.response.status === 404) {
+      if ([401, 404].includes(e.response.status)) {
         removeToken()
         history.push('/login')
       }

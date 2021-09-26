@@ -61,7 +61,7 @@ const UserList = () => {
                   <Link to={`/users/${user.id}`}>{user.full_name}</Link>
                 </td>
                 <td width="100" align="center">
-                  <Button type="button" color="danger" size="small" onClick={() => deleteUsers(user.id)}>
+                  <Button type="button" color="danger" size="small" confirm="Confirma a exclusão?" onClick={() => deleteUsers(user.id)}>
                     Delete
                   </Button>
                 </td>

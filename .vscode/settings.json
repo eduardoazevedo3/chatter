@@ -7,8 +7,8 @@
   },
   "editor.formatOnSave": true,
   "eslint.workingDirectories": [
-    "frontend"
+    "web"
   ],
-  "ruby.rubocop.configFilePath": "./backend/.rubocop.yml",
+  "ruby.rubocop.configFilePath": "./api/.rubocop.yml",
   "ruby.rubocop.onSave": true,
 }

@@ -9,7 +9,6 @@ import TextField from '../../components/TextField'
 import Typography from '../../components/Typography'
 import Form from '../../components/Form'
 import Box from '../../components/Box'
-import Api from '../../services/Api'
 import useApi from '../../hooks/api'
 import Sidebar from '../Sidebar'
 
@@ -34,15 +33,17 @@ const UserForm = () => {
 
     if (id) {
       getUser()
+    } else {
+      reset({})
     }
   }, [id, api, reset])
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       if (id !== undefined) {
-        await Api.patch(`/users/${id}`, { user: { ...data } })
+        await api.patch(`/users/${id}`, { user: { ...data } })
       } else {
-        await Api.post('/users', { user: { ...data } })
+        await api.post('/users', { user: { ...data } })
       }
       history.push('/users')
     } catch (e: any) {

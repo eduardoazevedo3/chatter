@@ -1,8 +1,10 @@
+import { ButtonHTMLAttributes } from 'react'
 import styled, { css } from 'styled-components'
 
-type Props = {
+export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'default' | 'primary' | 'success' | 'danger'
   size?: 'large' | 'small'
+  confirm?: string
   fullWidth?: boolean
   mb?: number
   ml?: number
@@ -10,7 +12,7 @@ type Props = {
   mt?: number
 }
 
-const Button = styled.button<Props>`
+const ButtonStyled = styled.button<Props>`
   ${({ color = 'default', size, fullWidth, theme, ...props }) => css`
     background-color: ${theme[color].backgroundColor};
     border: 1px solid ${theme[color].borderColor};
@@ -48,5 +50,24 @@ const Button = styled.button<Props>`
     `}
   `}
 `
+
+const Button = ({ children, onClick, confirm, ...props }: Props) => {
+  const onClickConfirmation = (e: any) => {
+    if (onClick) {
+      if (confirm) {
+        // eslint-disable-next-line no-alert
+        if (window.confirm(confirm)) onClick(e)
+      } else {
+        onClick(e)
+      }
+    }
+  }
+
+  return (
+    <ButtonStyled onClick={onClickConfirmation} {...props}>
+      {children}
+    </ButtonStyled>
+  )
+}
 
 export default Button

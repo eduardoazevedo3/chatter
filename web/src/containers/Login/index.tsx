@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
+import Alert from '../../components/Alert'
 import Box from '../../components/Box'
 import Button from '../../components/Button'
 import Card from '../../components/Card'
@@ -10,11 +11,12 @@ import Form from '../../components/Form'
 import TextField from '../../components/TextField'
 import Typography from '../../components/Typography'
 import useStorage from '../../hooks/storage'
-import { UserLogin } from '../../types/user.type'
+import { TUserLogin } from '../../types/User.type'
 
 const Login = () => {
   const [token, setToken] = useStorage('authToken')
-  const [loading, setLoading] = useState(false)
+  const [alert, setAlert] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
   const history = useHistory()
 
   const {
@@ -23,7 +25,7 @@ const Login = () => {
     setFocus,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserLogin>({
+  } = useForm<TUserLogin>({
     mode: 'onBlur',
   })
 
@@ -44,10 +46,9 @@ const Login = () => {
 
       history.push('/')
     } catch (e: any) {
-      console.log(e)
       setValue('password', '')
       setFocus('password')
-      // renderErrors(error.response.data)
+      setAlert(e.response.data.errors.join(','))
     } finally {
       setLoading(false)
     }
@@ -57,12 +58,22 @@ const Login = () => {
     <Container flex>
       <Typography variant="h1">Login</Typography>
       <Card width="500px">
+        {alert && <Alert severity="error">{alert}</Alert>}
         <Form onSubmit={onSubmit}>
-          <TextField id="user-email" name="email" label="Email" errors={errors} register={register} required />
-          <TextField type="password" id="user-password" name="password" label="Password" errors={errors} register={register} required />
+          <TextField id="user-email" name="email" label="Email" errors={errors} register={register} large required />
+          <TextField
+            type="password"
+            id="user-password"
+            name="password"
+            label="Password"
+            errors={errors}
+            register={register}
+            large
+            required
+          />
           <Box mt={25}>
             <Button type="submit" color="primary" size="large" disabled={loading} fullWidth>
-              {loading ? 'Entrando...' : 'Entrar'}
+              {loading ? 'Logging in...' : 'Log In'}
             </Button>
           </Box>
         </Form>

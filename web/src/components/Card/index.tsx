@@ -3,6 +3,8 @@ import Box from '../Box'
 
 type Props = {
   bgcolor?: string
+  mt?: number
+  mb?: number
 }
 
 const Card = styled(Box)<Props>`
@@ -10,9 +12,8 @@ const Card = styled(Box)<Props>`
     padding: 15px;
     background-color: #202024;
     border-radius: 5px;
-    margin: 15px 0;
-
-    background-color: ${bgcolor};
+    margin-top: 15px;
+    margin-bottom: 15px;
 
     ${bgcolor &&
     css`

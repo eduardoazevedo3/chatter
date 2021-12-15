@@ -1,44 +1,58 @@
 import { InputHTMLAttributes } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import Box from '../Box'
 
-const InputContainer = styled.div`
-  margin-top: 15px;
-`
+const Input = styled.input<TextFieldProps>`
+  ${({ small, large }) => css`
+    background-color: #121214;
+    border: 2px solid #121214;
+    border-radius: 5px;
+    padding: 10px;
+    color: #e1e1e6;
+    width: 100%;
+    font-size: 1rem;
 
-const Input = styled.input`
-  background-color: #121214;
-  border: 2px solid #121214;
-  border-radius: 5px;
-  padding: 10px;
-  color: #e1e1e6;
-  width: 100%;
+    &:focus {
+      border-color: #8257e5;
+      outline: unset;
+    }
 
-  &:focus {
-    border-color: #8257e5;
-    outline: unset;
-  }
+    ${small &&
+    css`
+      padding: 8px;
+    `}
+
+    ${large &&
+    css`
+      font-size: 1.1rem;
+      padding: 12px;
+    `}
+  `}
 `
 
 const InputError = styled.div`
   color: red;
 `
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   errors?: any
   register?: any
+  mt?: number
+  small?: boolean
+  large?: boolean
 }
 
-const TextField = ({ id, name, type, label, register, required, errors, ...props }: Props) => (
-  <InputContainer>
+const TextField = ({ id, name, type, label, mt, register, required, errors, ...props }: TextFieldProps) => (
+  <Box mt={mt !== undefined ? mt : 15}>
     <label htmlFor={id}>{label}</label>
     {register ? (
-      <Input type={type} id={id} {...register(name, { required: required || false })} {...props} />
+      <Input type={type} id={id} {...register(name, { required: { value: required || false, message: "can't be blank" } })} {...props} />
     ) : (
-      <Input type={type} id={id} name={name} {...props} />
+      <Input type={type} id={id} name={name} {...required} {...props} />
     )}
-    {errors && errors[name as keyof typeof errors] && <InputError>must be filled</InputError>}
-  </InputContainer>
+    {errors && errors[name as keyof typeof errors] && <InputError>{errors[name as keyof typeof errors].message}</InputError>}
+  </Box>
 )
 
 TextField.defaultProps = {
@@ -47,4 +61,5 @@ TextField.defaultProps = {
   register: null,
 }
 
+export { Input }
 export default TextField

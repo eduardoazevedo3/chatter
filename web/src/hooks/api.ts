@@ -2,6 +2,7 @@ import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 import useStorage from './storage'
+import { API_V1_URL } from '../constants'
 
 const useApi = () => {
   const [token] = useStorage('authToken')
@@ -9,8 +10,13 @@ const useApi = () => {
 
   const [state] = useState(() => {
     const instance = axios.create({
-      baseURL: 'http://localhost:3000/v1',
-      headers: token && { uid: token.uid, client: token.client, 'access-token': token['access-token'] },
+      baseURL: API_V1_URL,
+      headers: token && {
+        uid: token.uid,
+        client: token.client,
+        'access-token': token['access-token'],
+        'Key-Inflection': 'camel',
+      },
     })
 
     instance.interceptors.response.use(

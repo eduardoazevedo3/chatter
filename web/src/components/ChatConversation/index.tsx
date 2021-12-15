@@ -19,8 +19,8 @@ const ChatContent = styled.div<Props>`
     max-width: 60%;
     margin: 6px 0;
     overflow-wrap: break-word;
-    float: ${author ? 'left' : 'right'};
-    background-color: ${author ? theme.primary.backgroundColor : theme.success.backgroundColor};
+    float: ${author ? 'right' : 'left'};
+    background-color: ${author ? theme.success.backgroundColor : theme.primary.backgroundColor};
   `}
 `
 

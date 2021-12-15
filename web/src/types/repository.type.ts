@@ -1,4 +1,4 @@
-export type Repository = {
+export type TRepository = {
   id: number
   name: string
 }

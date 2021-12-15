@@ -1,15 +1,14 @@
-/* eslint-disable camelcase */
-export type User = {
+export type TUser = {
   id: number
   active: boolean
-  full_name: string
+  fullName: string
   email: string
-  phone_number?: string
-  created_at: string
-  updated_at: string
+  phoneNumber?: string
+  createdAt: string
+  updatedAt: string
 }
 
-export type UserLogin = {
+export type TUserLogin = {
   email?: string
   password?: string
 }

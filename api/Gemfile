@@ -22,9 +22,15 @@ gem 'puma', '~> 5.0'
 # Rack CORS Middleware
 gem 'rack-cors'
 
+# API Camelize
+gem 'olive_branch'
+
 # Devise is a flexible authentication
 gem 'devise'
 gem 'devise_token_auth'
+
+# Ruby Redis client
+gem 'redis'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

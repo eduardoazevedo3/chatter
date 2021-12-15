@@ -1,9 +1,9 @@
 import { ButtonHTMLAttributes } from 'react'
 import styled, { css } from 'styled-components'
 
-export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'default' | 'primary' | 'success' | 'danger'
-  size?: 'large' | 'small'
+  size?: 'large' | 'medium' | 'small'
   confirm?: string
   fullWidth?: boolean
   mb?: number
@@ -12,12 +12,11 @@ export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   mt?: number
 }
 
-const ButtonStyled = styled.button<Props>`
-  ${({ color = 'default', size, fullWidth, theme, ...props }) => css`
+const ButtonStyled = styled.button<ButtonProps>`
+  ${({ color = 'default', size = 'medium', fullWidth, theme, ...props }) => css`
     background-color: ${theme[color].backgroundColor};
     border: 1px solid ${theme[color].borderColor};
     color: #fff;
-    padding: 12px 24px;
     border-radius: 5px;
     font-size: 1.1rem;
     margin-bottom: ${props.mb || 0}px;
@@ -51,7 +50,7 @@ const ButtonStyled = styled.button<Props>`
   `}
 `
 
-const Button = ({ children, onClick, confirm, ...props }: Props) => {
+const Button = ({ children, onClick, confirm, ...props }: ButtonProps) => {
   const onClickConfirmation = (e: any) => {
     if (onClick) {
       if (confirm) {

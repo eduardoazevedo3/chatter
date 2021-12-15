@@ -37,6 +37,11 @@ class V1::UsersController < V1::ApplicationController
     @user.destroy
   end
 
+  # GET /users/signed_in
+  def signed_in
+    render json: current_v1_user
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

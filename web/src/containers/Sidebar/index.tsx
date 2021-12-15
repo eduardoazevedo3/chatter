@@ -25,20 +25,17 @@ const Sidebar = () => {
 
   return (
     <Card>
-      <Link to="/chats">Chats</Link>
+      <Link to="/">Home</Link>
+      <Link to="/chats" style={{ marginLeft: '20px' }}>
+        Chats
+      </Link>
       <Link to="/users" style={{ marginLeft: '20px' }}>
         Users
       </Link>
       <Link to="/users/new" style={{ marginLeft: '20px' }}>
         New User
       </Link>
-      <Link
-        to="#"
-        style={{ marginLeft: '20px' }}
-        onClick={() => {
-          logout()
-        }}
-      >
+      <Link to="#" style={{ marginLeft: '20px' }} onClick={logout}>
         Logout
       </Link>
     </Card>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import Alert from '../../components/Alert'
@@ -10,10 +10,12 @@ import Container from '../../components/Containter'
 import Form from '../../components/Form'
 import TextField from '../../components/TextField'
 import Typography from '../../components/Typography'
+import AuthContext from '../../contexts/AuthContext'
 import useStorage from '../../hooks/storage'
-import { TUserLogin } from '../../types/User.type'
+import { TUser, TUserLogin } from '../../types/User.type'
 
 const Login = () => {
+  const { setUser } = useContext(AuthContext)
   const [token, setToken] = useStorage('authToken')
   const [alert, setAlert] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -34,7 +36,7 @@ const Login = () => {
       if (token) return
 
       setLoading(true)
-      const { headers } = await axios.post('http://localhost:3000/v1/auth/sign_in', { ...params })
+      const { headers, data } = await axios.post('http://localhost:3000/v1/auth/sign_in', { ...params })
 
       setToken({
         uid: headers.uid,
@@ -43,6 +45,8 @@ const Login = () => {
         'access-token': headers['access-token'],
         'token-type': headers['token-type'],
       })
+
+      setUser(data.data as TUser)
 
       history.push('/')
     } catch (e: any) {

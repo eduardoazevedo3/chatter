@@ -1,6 +1,8 @@
 class ChatMessage < ApplicationRecord
   attribute :text, :encrypted
 
+  after_commit :cable_send_message, on: :create
+
   belongs_to :author, class_name: 'User'
   belongs_to :user
 
@@ -16,7 +18,10 @@ class ChatMessage < ApplicationRecord
   private
 
   def cable_send_message
-    message = { id: id, author_id: author_id, text: text, created_at: created_at }
-    ActionCable.server.broadcast("chat_messages_#{user_id}", message: message)
+    message = { id: id, author: author, text: text, createdAt: created_at, updatedAt: updated_at }
+
+    ["#{author_id}_#{user_id}", "#{user_id}_#{author_id}"].each do |room|
+      ActionCable.server.broadcast("chat_messages_#{room}", message: message)
+    end
   end
 end

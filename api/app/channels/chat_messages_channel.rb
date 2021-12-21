@@ -1,6 +1,14 @@
 class ChatMessagesChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "chat_messages_#{current_user.id}" if current_user
+    return unless current_user && params[:room].present?
+
+    room = params[:room].to_s.split('_')
+    return unless room.size == 2
+
+    author = User.find_by(id: room.last)
+    return unless author && room.first == current_user.id.to_s
+
+    stream_from "chat_messages_#{params[:room]}"
   end
 
   def unsubscribed

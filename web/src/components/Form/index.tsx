@@ -9,6 +9,7 @@ type Props = {
   pl?: number
   pr?: number
   pt?: number
+  visible?: boolean
 }
 
 const Form = styled.form<Props>`
@@ -21,6 +22,10 @@ const Form = styled.form<Props>`
     padding-left: ${props.pl || 0}px;
     padding-right: ${props.pr || 0}px;
     padding-top: ${props.pt || 0}px;
+    ${props.visible === false &&
+    css`
+      display: none;
+    `}
   `}
 `
 

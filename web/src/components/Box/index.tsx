@@ -10,7 +10,7 @@ type Props = {
   pr?: number
   pt?: number
   width?: string
-  align?: string
+  align?: 'center' | 'left' | 'right' | 'justify' | 'inherit'
 }
 
 const Box = styled.div<Props>`

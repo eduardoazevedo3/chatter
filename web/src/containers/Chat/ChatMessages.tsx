@@ -1,4 +1,6 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faComments } from '@fortawesome/free-regular-svg-icons'
 import Button from '../../components/Button'
 import Card from '../../components/Card'
 import ChatConversation, { ChatContent } from '../../components/ChatConversation'
@@ -10,6 +12,7 @@ import AuthContext from '../../contexts/AuthContext'
 import useApi from '../../hooks/api'
 import { TChatMessage } from '../../types/ChatMessage.type'
 import { TUser } from '../../types/User.type'
+import Box from '../../components/Box'
 
 type Props = {
   user: TUser
@@ -88,6 +91,13 @@ const ChatMessages = ({ user }: Props) => {
 
   return (
     <>
+      {user?.id && (
+        <Card>
+          <Typography variant="h2" style={{ margin: 0 }}>
+            {user?.fullName}
+          </Typography>
+        </Card>
+      )}
       <Card style={{ height: 600, overflowY: 'auto' }} ref={chatContainer}>
         {messages.map((message) => (
           <ChatConversation key={message.id}>
@@ -99,6 +109,21 @@ const ChatMessages = ({ user }: Props) => {
             </ChatContent>
           </ChatConversation>
         ))}
+        {!user?.id && (
+          <Box align="center" style={{ margin: '70px auto' }}>
+            <FontAwesomeIcon icon={faComments} size="10x" style={{ alignItems: 'center' }} />
+            <Typography component="h3" style={{ marginTop: 10 }}>
+              Send your messages in an easy, <br />
+              safe and fun way.
+            </Typography>
+          </Box>
+        )}
+        {user?.id && !messages.length && (
+          <Box align="center" style={{ margin: '70px auto' }}>
+            <FontAwesomeIcon icon={faComments} size="10x" style={{ alignItems: 'center' }} />
+            <Typography component="h3">There are no messages here</Typography>
+          </Box>
+        )}
       </Card>
       <Form onSubmit={(e) => e.preventDefault()} visible={!!user?.id}>
         <Card style={{ display: 'flex' }}>

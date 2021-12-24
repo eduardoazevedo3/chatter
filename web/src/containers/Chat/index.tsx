@@ -20,7 +20,9 @@ const Chat = () => {
           <Grid xs={4}>
             <ChatContacts />
           </Grid>
-          <Grid xs={8}>{user && <ChatMessages user={user} />}</Grid>
+          <Grid xs={8}>
+            <ChatMessages user={user} />
+          </Grid>
         </Grid>
       </Container>
     </UserContext.Provider>

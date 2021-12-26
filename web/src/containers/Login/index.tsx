@@ -32,6 +32,8 @@ const Login = () => {
   })
 
   const onSubmit = handleSubmit(async (params) => {
+    axios.defaults.headers.post['Key-Inflection'] = 'camel'
+
     try {
       if (token) return
 

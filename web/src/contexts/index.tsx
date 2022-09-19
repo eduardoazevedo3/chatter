@@ -6,9 +6,9 @@ type Props = {
 }
 
 const GlobalContext = ({ children }: Props) => (
-  <ActionCableProvider>
-    <AuthProvider>{children}</AuthProvider>
-  </ActionCableProvider>
+  <AuthProvider>
+    <ActionCableProvider>{children}</ActionCableProvider>
+  </AuthProvider>
 )
 
 export default GlobalContext

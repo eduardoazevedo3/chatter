@@ -36,6 +36,7 @@ const InputError = styled.div`
 
 export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
+  autoComplete?: string
   errors?: any
   register?: any
   mt?: number

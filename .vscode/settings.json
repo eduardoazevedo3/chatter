@@ -6,9 +6,8 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": true,
-  "eslint.workingDirectories": [
-    "web"
-  ],
-  "ruby.rubocop.configFilePath": "./api/.rubocop.yml",
+  "eslint.workingDirectories": ["web"],
   "ruby.rubocop.onSave": true,
+  "ruby.useBundler": true,
+  "ruby.rubocop.useBundler": true
 }

@@ -8,7 +8,7 @@ class ChatMessagesChannel < ApplicationCable::Channel
     author = User.find_by(id: room.last)
     return unless author && room.first == current_user.id.to_s
 
-    stream_from "chat_messages_#{params[:room]}"
+    stream_from("chat_messages_#{params[:room]}")
   end
 
   def unsubscribed

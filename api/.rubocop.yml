@@ -1,19 +1,16 @@
 AllCops:
-  TargetRubyVersion: 2.7.6
+  TargetRubyVersion: 3.1.3
   NewCops: enable
   Exclude:
-    - "packages/**/db/**/*"
-    - "packages/**/Gemfile"
-    - "packages/**/Gemfile.lock"
-    - "packages/**/Rakefile"
-    - "packages/**/rails"
-    - "packages/**/lib/**/*"
-    - "packages/**/bin/*"
-    - "packages/**/migrate/**/*"
-    - "packages/**/vendor/**/*"
-
-Layout/ClosingParenthesisIndentation:
-  Enabled: false
+    - 'packages/**/db/**/*'
+    - 'packages/**/Gemfile'
+    - 'packages/**/Gemfile.lock'
+    - 'packages/**/Rakefile'
+    - 'packages/**/rails'
+    - 'packages/**/lib/**/*'
+    - 'packages/**/bin/*'
+    - 'packages/**/migrate/**/*'
+    - 'packages/**/vendor/**/*'
 
 Layout/FirstHashElementIndentation:
   Enabled: false
@@ -94,23 +91,6 @@ Style/FrozenStringLiteralComment:
 
 Style/GlobalVars:
   Enabled: false
-
-Style/MethodCallWithArgsParentheses:
-  Enabled: true
-  IgnoredMethods:
-    - authorize
-    - raise
-    - render
-    - respond_to
-    - to
-    - to_not
-    - not_to
-    - validates
-    - with
-    - module_eval
-    - require
-    - is_a?
-    - model
 
 Style/NumericLiterals:
   Enabled: false

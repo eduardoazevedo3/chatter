@@ -7,7 +7,5 @@
   },
   "editor.formatOnSave": true,
   "eslint.workingDirectories": ["web"],
-  "ruby.rubocop.onSave": true,
-  "ruby.useBundler": true,
-  "ruby.rubocop.useBundler": true
+  "ruby.useBundler": true
 }

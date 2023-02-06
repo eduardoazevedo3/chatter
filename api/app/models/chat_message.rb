@@ -19,17 +19,19 @@ class ChatMessage < ApplicationRecord
 
   def cable_send_message
     ["#{author_id}_#{user_id}", "#{user_id}_#{author_id}"].each do |room|
-      ActionCable.server.broadcast("chat_messages_#{room}", message: cable_serialized_message)
+      ActionCable.server.broadcast "chat_messages_#{room}", cable_serialized_message
     end
   end
 
   def cable_serialized_message
     {
-      id: id,
-      text: text,
-      createdAt: created_at,
-      updatedAt: updated_at,
-      author: author
+      message: {
+        id:,
+        text:,
+        createdAt: created_at,
+        updatedAt: updated_at,
+        author:
+      }
     }
   end
 end

@@ -228,7 +228,7 @@ DEPENDENCIES
   olive_branch
   puma (~> 5.0)
   rack-cors
-  rails (~> 7.0.6)
+  rails (~> 7.0.7)
   redis
   rubocop-rails
   spring

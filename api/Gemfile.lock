@@ -226,7 +226,7 @@ DEPENDENCIES
   devise
   devise_token_auth
   listen (~> 3.3)
-  mysql2 (~> 0.5)
+  mysql2
   olive_branch
   puma (~> 5.0)
   rack-cors

@@ -26,7 +26,7 @@ gem 'devise_token_auth'
 gem 'redis'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: true
+gem 'bootsnap', '>= 1.4.4', require: false
 
 # Symmetric Encryption uses OpenSSL to encrypt and decrypt data
 gem 'symmetric-encryption'
